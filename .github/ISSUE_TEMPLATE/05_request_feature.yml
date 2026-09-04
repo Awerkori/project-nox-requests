@@ -1,0 +1,34 @@
+name: "✨ Sugerir melhoria"
+description: Sugira uma melhoria relacionada às extensões.
+title: "[Sugestão]: "
+labels: ["Sugestão"]
+body:
+  - type: input
+    id: extensao
+    attributes:
+      label: Extensão afetada, se houver
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Mangá
+        - Anime
+    validations:
+      required: true
+  - type: textarea
+    id: sugestao
+    attributes:
+      label: Descrição da sugestão
+    validations:
+      required: true
+  - type: textarea
+    id: motivo
+    attributes:
+      label: Motivo
+    validations:
+      required: true
+  - type: textarea
+    id: adicionais
+    attributes:
+      label: Informações adicionais

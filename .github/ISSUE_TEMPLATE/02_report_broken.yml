@@ -1,0 +1,99 @@
+name: "🐛 Reportar extensão quebrada"
+description: Informe uma falha em uma extensão existente.
+title: "[Bug]: "
+labels: ["Bug"]
+body:
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Mangá
+        - Anime
+    validations:
+      required: true
+  - type: input
+    id: extensao
+    attributes:
+      label: Nome da extensão
+    validations:
+      required: true
+  - type: input
+    id: versao
+    attributes:
+      label: Versão
+      description: Informe a versão exibida no app.
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL do site
+      placeholder: https://exemplo.com
+    validations:
+      required: true
+  - type: checkboxes
+    id: parte_afetada
+    attributes:
+      label: O que está quebrado?
+      options:
+        - label: Popular
+        - label: Recentes
+        - label: Busca
+        - label: Filtros
+        - label: Detalhes
+        - label: Capítulos/Episódios
+        - label: Leitor/Vídeo
+        - label: Login
+        - label: Outro
+    validations:
+      required: true
+  - type: textarea
+    id: inicio
+    attributes:
+      label: Quando começou, se souber
+      placeholder: "Ex.: Hoje, após uma mudança no site."
+  - type: dropdown
+    id: navegador
+    attributes:
+      label: O site funciona normalmente no navegador?
+      options:
+        - Sim
+        - Não
+        - Parcialmente
+        - Não sei
+    validations:
+      required: true
+  - type: dropdown
+    id: login
+    attributes:
+      label: Precisa de login?
+      options:
+        - Não
+        - Sim
+        - Não sei
+    validations:
+      required: true
+  - type: dropdown
+    id: premium
+    attributes:
+      label: Precisa de VIP/Premium?
+      options:
+        - Não
+        - Sim
+        - Parcialmente
+        - Não sei
+    validations:
+      required: true
+  - type: textarea
+    id: erro
+    attributes:
+      label: Mensagem de erro
+      description: Copie a mensagem exibida, se houver. Não inclua dados privados.
+    validations:
+      required: true
+  - type: textarea
+    id: adicionais
+    attributes:
+      label: Informações adicionais
+      description: Você pode anexar prints ou vídeos aqui.

@@ -1,0 +1,36 @@
+name: Rotular tipo de Issue
+
+on:
+  issues:
+    types: [opened, edited]
+
+permissions:
+  issues: write
+
+jobs:
+  label-type:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Aplicar label Mangá ou Anime
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const body = context.payload.issue.body || '';
+            const match = body.match(/^###\s*Tipo\s*\r?\n+\s*(Mangá|Anime)\s*$/im);
+            if (!match) return;
+
+            const selected = match[1] === 'Mangá' ? 'Manga' : 'Anime';
+            const other = selected === 'Manga' ? 'Anime' : 'Manga';
+            const params = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            };
+
+            await github.rest.issues.addLabels({ ...params, labels: [selected] });
+            try {
+              await github.rest.issues.removeLabel({ ...params, name: other });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }

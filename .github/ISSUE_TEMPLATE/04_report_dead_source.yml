@@ -1,0 +1,38 @@
+name: "💀 Informar fonte/site morto"
+description: Informe uma fonte que aparenta estar permanentemente indisponível.
+title: "[Fonte morta]: "
+labels: ["Fonte morta"]
+body:
+  - type: markdown
+    attributes:
+      value: Instabilidade temporária não significa necessariamente que a fonte morreu.
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Mangá
+        - Anime
+    validations:
+      required: true
+  - type: input
+    id: extensao
+    attributes:
+      label: Nome da extensão
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL
+      placeholder: https://exemplo.com
+    validations:
+      required: true
+  - type: textarea
+    id: desde_quando
+    attributes:
+      label: Desde quando está offline, se souber
+  - type: textarea
+    id: observacoes
+    attributes:
+      label: Observações

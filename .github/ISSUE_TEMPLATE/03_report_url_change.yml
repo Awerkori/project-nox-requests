@@ -1,0 +1,38 @@
+name: "🔗 Informar mudança de domínio"
+description: Informe quando o endereço de uma fonte mudou.
+title: "[Mudança de domínio]: "
+labels: ["Mudança de domínio"]
+body:
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Mangá
+        - Anime
+    validations:
+      required: true
+  - type: input
+    id: extensao
+    attributes:
+      label: Nome da extensão
+    validations:
+      required: true
+  - type: input
+    id: url_antiga
+    attributes:
+      label: URL antiga
+      placeholder: https://antigo.exemplo.com
+    validations:
+      required: true
+  - type: input
+    id: url_nova
+    attributes:
+      label: URL nova
+      placeholder: https://novo.exemplo.com
+    validations:
+      required: true
+  - type: textarea
+    id: observacoes
+    attributes:
+      label: Observações

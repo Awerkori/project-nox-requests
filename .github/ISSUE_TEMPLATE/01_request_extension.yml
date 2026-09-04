@@ -1,0 +1,88 @@
+name: "🌐 Pedir nova extensão"
+description: Solicite uma nova fonte de Mangá ou Anime.
+title: "[Nova extensão]: "
+labels: ["Nova extensão"]
+body:
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Mangá
+        - Anime
+    validations:
+      required: true
+  - type: input
+    id: fonte
+    attributes:
+      label: Nome da fonte/site
+      placeholder: "Ex.: Nome do site"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: URL do site
+      placeholder: https://exemplo.com
+    validations:
+      required: true
+  - type: input
+    id: idioma
+    attributes:
+      label: Idioma
+      placeholder: "Ex.: Português (Brasil)"
+    validations:
+      required: true
+  - type: dropdown
+    id: login
+    attributes:
+      label: Precisa de login?
+      options:
+        - Não
+        - Sim
+    validations:
+      required: true
+  - type: dropdown
+    id: premium
+    attributes:
+      label: Precisa de VIP/Premium?
+      options:
+        - Não
+        - Sim
+        - Parcialmente
+    validations:
+      required: true
+  - type: dropdown
+    id: adulto
+    attributes:
+      label: Conteúdo +18?
+      options:
+        - Não
+        - Sim
+    validations:
+      required: true
+  - type: textarea
+    id: observacoes
+    attributes:
+      label: Observações
+      description: Inclua detalhes úteis sobre a fonte, sem dados privados.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirmacoes
+    attributes:
+      label: Confirmações
+      options:
+        - label: Confirmei que a extensão ainda não existe.
+          required: true
+        - label: Procurei Issues abertas e fechadas.
+          required: true
+        - label: Este ticket não é duplicado.
+          required: true
+        - label: Não incluí senha, token, cookie ou credencial privada.
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+        Use 👍 neste Issue para demonstrar interesse nesta extensão.
+        Não crie tickets duplicados apenas para votar.
