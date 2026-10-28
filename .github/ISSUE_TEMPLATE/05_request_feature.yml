@@ -2,15 +2,10 @@ name: "✨ Sugestão de melhoria"
 description: "Propor novas funcionalidades, melhorias no ecossistema ou ideias para extensões."
 labels: ["Sugestão"]
 body:
-  - type: markdown
-    attributes:
-      value: "### 💡 Proposta de melhoria"
-
   - type: input
     id: summary
     attributes:
-      label: "Título ou resumo da sugestão"
-      description: "Uma frase concisa resumindo o recurso ou melhoria proposta."
+      label: "Título ou resumo"
       placeholder: "Ex.: Adicionar suporte a filtro por ano de lançamento no catálogo"
     validations:
       required: true
@@ -19,30 +14,16 @@ body:
     id: description
     attributes:
       label: "Descrição da melhoria"
-      description: "Explique em detalhes a melhoria que você gostaria de ver implementada e como ela funcionaria."
-      placeholder: "Ex.: Adicionar um novo filtro nos catálogos para permitir filtrar obras por ano ou década de publicação."
+      description: "Explique a melhoria proposta e por que ela seria útil."
+      placeholder: "Descreva a nova funcionalidade, como ela deve funcionar e seus benefícios."
     validations:
       required: true
-
-  - type: textarea
-    id: purpose
-    attributes:
-      label: "Objetivo ou justificativa"
-      description: "Por que essa melhoria seria útil para os usuários e para o ecossistema do Project Nox?"
-      placeholder: "Ex.: Facilitaria encontrar obras clássicas ou lançamentos específicos de uma temporada sem precisar de busca textual."
-    validations:
-      required: true
-
-  - type: markdown
-    attributes:
-      value: "### 📝 Informações complementares"
 
   - type: input
     id: related_extension
     attributes:
       label: "Extensão relacionada (opcional)"
-      description: "Se a sugestão for específica para uma extensão, informe o nome. Deixe em branco para sugestões gerais do Project Nox."
-      placeholder: "Ex.: SukiMangas, MangaLivre.lat ou deixe em branco se for geral"
+      placeholder: "Ex.: SukiMangas (deixe em branco se for geral do Project Nox)"
     validations:
       required: false
 
@@ -50,6 +31,6 @@ body:
     id: extra
     attributes:
       label: "Informações complementares (opcional)"
-      description: "Exemplos de outros aplicativos que já possuem essa função, conceitos visuais ou links de referência."
+      placeholder: "Exemplos de outros aplicativos, conceitos visuais ou referências."
     validations:
       required: false

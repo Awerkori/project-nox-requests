@@ -2,15 +2,10 @@ name: "🌐 Nova extensão"
 description: "Solicitar a inclusão de uma nova fonte de Mangá ou Anime no Project Nox."
 labels: ["Nova extensão"]
 body:
-  - type: markdown
-    attributes:
-      value: "### 📌 Informações da extensão"
-
   - type: dropdown
     id: type
     attributes:
       label: "Tipo de extensão"
-      description: "Selecione se a fonte é focada em leitura de mangás ou streaming de animes."
       options:
         - "Mangá"
         - "Anime"
@@ -20,8 +15,7 @@ body:
   - type: input
     id: name
     attributes:
-      label: "Nome da fonte/site"
-      description: "Nome oficial da fonte exatamente como exibido na plataforma."
+      label: "Nome da fonte"
       placeholder: "Ex.: SukiMangas"
     validations:
       required: true
@@ -29,9 +23,8 @@ body:
   - type: input
     id: url
     attributes:
-      label: "URL oficial do site"
-      description: "Endereço web completo e acessível da fonte."
-      placeholder: "Ex.: https://sukimangas.com"
+      label: "URL do site"
+      placeholder: "https://exemplo.com.br"
     validations:
       required: true
 
@@ -39,21 +32,15 @@ body:
     id: lang
     attributes:
       label: "Idioma"
-      description: "Idioma principal dos títulos e capítulos da fonte."
       placeholder: "Ex.: Português (Brasil)"
       value: "Português (Brasil)"
     validations:
       required: true
 
-  - type: markdown
-    attributes:
-      value: "### 🔐 Requisitos de acesso"
-
   - type: dropdown
     id: login
     attributes:
       label: "Precisa de login?"
-      description: "O conteúdo público pode ser acessado sem criação de conta?"
       options:
         - "Não"
         - "Sim"
@@ -64,7 +51,6 @@ body:
     id: vip
     attributes:
       label: "Precisa de VIP/Premium?"
-      description: "Há conteúdo bloqueado sob assinatura paga ou passe VIP?"
       options:
         - "Não"
         - "Sim"
@@ -75,43 +61,17 @@ body:
   - type: dropdown
     id: nsfw
     attributes:
-      label: "O site possui conteúdo +18?"
-      description: "A fonte hospeda conteúdo adulto explícito (+18/Hentai)?"
+      label: "Conteúdo +18?"
       options:
         - "Não"
         - "Sim"
     validations:
       required: true
 
-  - type: markdown
-    attributes:
-      value: "### 📝 Informações adicionais"
-
   - type: textarea
     id: notes
     attributes:
       label: "Observações (opcional)"
-      description: "Informações adicionais sobre o site, se houver (sem senhas ou dados privados)."
-      placeholder: "Ex.: O site mudou de layout recentemente ou usa proteção específica."
+      placeholder: "Informações adicionais sobre o site, se houver."
     validations:
       required: false
-
-  - type: markdown
-    attributes:
-      value: "### ✅ Confirmação"
-
-  - type: checkboxes
-    id: confirmation
-    attributes:
-      label: "Confirmações"
-      options:
-        - label: "Pesquisei solicitações existentes e confirmo que este pedido não é duplicado."
-          required: true
-        - label: "Não incluí senhas, tokens, cookies ou credenciais pessoais privadas."
-          required: true
-
-  - type: markdown
-    attributes:
-      value: |
-        ---
-        👍 **Dica:** Ao abrir o ticket, curta com a reação 👍 para ajudar a subir a prioridade da extensão no Tracker!

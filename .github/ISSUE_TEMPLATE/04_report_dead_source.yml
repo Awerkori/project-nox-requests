@@ -2,20 +2,10 @@ name: "💀 Fonte indisponível"
 description: "Reportar uma fonte permanentemente inoperante, descontinuada ou encerrada."
 labels: ["Fonte indisponível"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        ⚠️ **Atenção:** Instabilidades temporárias de servidores ou manutenções não significam necessariamente encerramento definitivo. Verifique se o site abre no navegador comum antes de abrir esta solicitação.
-
-  - type: markdown
-    attributes:
-      value: "### 📌 Identificação da fonte"
-
   - type: dropdown
     id: type
     attributes:
       label: "Tipo de extensão"
-      description: "Selecione se a fonte é de Mangá ou Anime."
       options:
         - "Mangá"
         - "Anime"
@@ -26,49 +16,23 @@ body:
     id: name
     attributes:
       label: "Nome da extensão"
-      description: "Nome da extensão que aparenta estar permanentemente offline."
-      placeholder: "Ex.: SukiMangas, MangaLivre.lat, etc."
+      placeholder: "Ex.: SukiMangas, MangaLivre.lat"
     validations:
       required: true
-
-  - type: markdown
-    attributes:
-      value: "### 💀 Detalhes da indisponibilidade"
 
   - type: textarea
     id: description
     attributes:
-      label: "O que aconteceu com a fonte?"
-      description: "Descreva o que indica que a fonte está morta (ex.: DNS não resolve há semanas, domínio à venda, aviso oficial de encerramento)."
-      placeholder: "Ex.: O domínio expirou há mais de 3 semanas e as redes sociais da scan anunciaram o encerramento definitivo das atividades."
+      label: "O que aconteceu?"
+      description: "Verifique se o site realmente encerrou ou se é uma instabilidade temporária."
+      placeholder: "Ex.: O domínio expirou há semanas e os responsáveis confirmaram o encerramento das atividades."
     validations:
       required: true
-
-  - type: markdown
-    attributes:
-      value: "### 📝 Informações adicionais"
-
-  - type: input
-    id: app_and_version
-    attributes:
-      label: "Aplicativo e versão utilizada (opcional)"
-      description: "Aplicativo e versão da extensão instalada, se souber."
-      placeholder: "Ex.: Mihon 0.17.1 / Extensão 1.6.0"
-    validations:
-      required: false
-
-  - type: textarea
-    id: evidence
-    attributes:
-      label: "Evidências ou links informando o encerramento (opcional)"
-      description: "Links de comunicados oficiais, prints de erro DNS ou avisos da equipe da fonte."
-    validations:
-      required: false
 
   - type: textarea
     id: notes
     attributes:
-      label: "Observações adicionais (opcional)"
-      description: "Outras informações úteis sobre a situação da fonte."
+      label: "Informações complementares (opcional)"
+      placeholder: "Links de comunicados oficiais, prints ou detalhes adicionais, se houver."
     validations:
       required: false

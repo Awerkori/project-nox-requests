@@ -46,13 +46,13 @@ jobs:
               // Detecção heurística caso a issue tenha sido aberta sem labels do template
               if (body.includes('Qual extensão está apresentando o problema?') || body.includes('Parte afetada')) {
                 category = 'Problema na extensão';
-              } else if (body.includes('URL oficial do site') && body.includes('Precisa de login?')) {
+              } else if ((body.includes('URL oficial do site') || body.includes('URL do site')) && (body.includes('Precisa de login?') || body.includes('Precisa de VIP'))) {
                 category = 'Nova extensão';
-              } else if (body.includes('Domínio ou URL antigo')) {
+              } else if (body.includes('Domínio ou URL antigo') || body.includes('URL antiga')) {
                 category = 'Mudança de domínio';
-              } else if (body.includes('O que aconteceu com a fonte?')) {
+              } else if (body.includes('O que aconteceu com a fonte?') || body.includes('O que aconteceu?')) {
                 category = 'Fonte indisponível';
-              } else if (body.includes('Proposta de melhoria') || body.includes('Título ou resumo da sugestão')) {
+              } else if (body.includes('Proposta de melhoria') || body.includes('Título ou resumo') || body.includes('Descrição da melhoria')) {
                 category = 'Sugestão';
               }
             }
@@ -72,7 +72,7 @@ jobs:
             let desiredTitle = rawTitle;
 
             if (category === 'Nova extensão') {
-              const fonteName = extractField(/###\s*Nome da fonte\/site\s*\r?\n+([^\r\n#]+)/i);
+              const fonteName = extractField(/###\s*Nome d[oa] (?:fonte\/site|fonte|site)\s*\r?\n+([^\r\n#]+)/i);
               const finalName = fonteName || cleanTitle || 'Nova fonte';
               desiredTitle = `[Nova extensão]: ${finalName}`;
             } else if (category === 'Problema na extensão') {
@@ -99,7 +99,7 @@ jobs:
               const finalName = extName || cleanTitle || 'Extensão';
               desiredTitle = `[Fonte indisponível]: ${finalName}`;
             } else if (category === 'Sugestão') {
-              const summary = extractField(/###\s*Título ou resumo da sugestão\s*\r?\n+([^\r\n#]+)/i);
+              const summary = extractField(/###\s*Título ou resumo(?: da sugestão)?\s*\r?\n+([^\r\n#]+)/i);
               const finalSummary = cleanTitle || summary || 'Sugestão';
               desiredTitle = `[Sugestão]: ${finalSummary}`;
             }
