@@ -1,0 +1,96 @@
+name: Encerrar Issue com Resolução Formal
+
+on:
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "Número do Issue (#)"
+        required: true
+        type: number
+      resolution:
+        description: "Resolução do Issue"
+        required: true
+        type: choice
+        options:
+          - Concluído
+          - Recusado
+          - Duplicado
+          - Cancelado
+      comment:
+        description: "Comentário ou justificativa de encerramento (opcional)"
+        required: false
+        type: string
+      related_issue:
+        description: "Número do Issue relacionado (obrigatório se duplicado)"
+        required: false
+        type: string
+
+permissions:
+  issues: write
+
+jobs:
+  close-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Aplicar Resolução e Fechar Issue
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = context.payload.inputs.issue_number;
+            const resolution = context.payload.inputs.resolution;
+            const userComment = context.payload.inputs.comment || '';
+            const relatedIssue = context.payload.inputs.related_issue || '';
+
+            const params = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(issueNumber),
+            };
+
+            // Fetch current issue
+            const { data: issue } = await github.rest.issues.get(params);
+            const currentLabels = (issue.labels || []).map(l => typeof l === 'string' ? l : l.name);
+
+            // Labels to remove: any previous resolution:* or status:in-progress/triage
+            const labelsToRemove = [
+              'resolution:done', 'resolution:declined', 'resolution:duplicate', 'resolution:cancelled',
+              'Concluído', 'Recusado', 'status:in-progress', 'status:triage', 'status:needs-info',
+              'Em desenvolvimento', 'Em análise', 'Aguardando informações'
+            ].filter(l => currentLabels.includes(l));
+
+            for (const lbl of labelsToRemove) {
+              try {
+                await github.rest.issues.removeLabel({ ...params, name: lbl });
+              } catch (e) {
+                if (e.status !== 404) console.warn('Could not remove label:', lbl, e.message);
+              }
+            }
+
+            // Add the selected official resolution label
+            const resolutionLabel = resolution; // Concluído, Recusado, Duplicado, Cancelado
+            await github.rest.issues.addLabels({ ...params, labels: [resolutionLabel] });
+
+            // Prepare resolution comments
+            let commentText = userComment;
+            if (resolution === 'Duplicado' && relatedIssue) {
+              const dupNotice = `Este ticket foi marcado como duplicado do Issue #${relatedIssue.replace('#', '')}.`;
+              commentText = commentText ? `${commentText}\n\n${dupNotice}` : dupNotice;
+            }
+
+            if (commentText) {
+              await github.rest.issues.createComment({
+                ...params,
+                body: commentText
+              });
+            }
+
+            // Close issue with proper state_reason
+            const stateReason = resolution === 'Concluído' ? 'completed' : 'not_planned';
+            await github.rest.issues.update({
+              ...params,
+              state: 'closed',
+              state_reason: stateReason
+            });
+
+            console.log(`Issue #${issueNumber} successfully closed with resolution: ${resolutionLabel}`);

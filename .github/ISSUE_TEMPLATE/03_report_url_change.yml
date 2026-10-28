@@ -1,38 +1,71 @@
-name: "🔗 Informar mudança de domínio"
-description: Informe quando o endereço de uma fonte mudou.
-title: "[Mudança de domínio]: "
+name: "🔄 Mudança de domínio"
+description: "Informar quando o endereço web oficial de uma extensão existente mudou de URL."
 labels: ["Mudança de domínio"]
 body:
+  - type: markdown
+    attributes:
+      value: "### 📌 Identificação da extensão"
+
   - type: dropdown
-    id: tipo
+    id: type
     attributes:
-      label: Tipo
+      label: "Tipo de extensão"
+      description: "Selecione se a extensão é de leitura de Mangás ou streaming de Animes."
       options:
-        - Mangá
-        - Anime
+        - "Mangá"
+        - "Anime"
     validations:
       required: true
+
   - type: input
-    id: extensao
+    id: name
     attributes:
-      label: Nome da extensão
+      label: "Nome da extensão"
+      description: "Nome exato da extensão como exibido no aplicativo."
+      placeholder: "Ex.: SukiMangas, MangaLivre.lat, etc."
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: "### 🔄 Endereços oficiais"
+
   - type: input
-    id: url_antiga
+    id: old_url
     attributes:
-      label: URL antiga
-      placeholder: https://antigo.exemplo.com
+      label: "Domínio ou URL antigo"
+      description: "Endereço anterior que deixou de responder ou foi redirecionado."
+      placeholder: "Ex.: https://antigo.exemplo.com"
     validations:
       required: true
+
   - type: input
-    id: url_nova
+    id: new_url
     attributes:
-      label: URL nova
-      placeholder: https://novo.exemplo.com
+      label: "Novo domínio ou URL oficial"
+      description: "Novo endereço web oficial divulgado pelos responsáveis da fonte."
+      placeholder: "Ex.: https://novo.exemplo.com"
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: "### 📝 Informações adicionais"
+
+  - type: input
+    id: extension_version
+    attributes:
+      label: "Versão instalada da extensão (opcional)"
+      description: "Versão atualmente instalada no seu app, se souber."
+      placeholder: "Ex.: 1.6.0"
+    validations:
+      required: false
+
   - type: textarea
-    id: observacoes
+    id: notes
     attributes:
-      label: Observações
+      label: "Observações adicionais (opcional)"
+      description: "Link de anúncio oficial (Discord, Telegram ou redes sociais da fonte), se houver."
+      placeholder: "Ex.: O anúncio da mudança foi publicado no Discord oficial da scan."
+    validations:
+      required: false

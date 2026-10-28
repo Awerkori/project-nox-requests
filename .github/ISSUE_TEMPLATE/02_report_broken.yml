@@ -1,99 +1,171 @@
-name: "🐛 Reportar extensão quebrada"
-description: Informe uma falha em uma extensão existente.
-title: "[Bug]: "
-labels: ["Bug"]
+name: "🐛 Extensão com problema"
+description: "Reportar falhas em uma extensão existente (capítulos, catálogo, leitor, vídeos, etc.)."
+labels: ["Problema na extensão"]
 body:
+  - type: markdown
+    attributes:
+      value: "### 📌 Identificação da extensão"
+
   - type: dropdown
-    id: tipo
+    id: type
     attributes:
-      label: Tipo
+      label: "Tipo de extensão"
+      description: "Selecione se a extensão com problema é de leitura de Mangás ou streaming de Animes."
       options:
-        - Mangá
-        - Anime
+        - "Mangá"
+        - "Anime"
     validations:
       required: true
+
   - type: input
-    id: extensao
+    id: name
     attributes:
-      label: Nome da extensão
+      label: "Qual extensão está apresentando o problema?"
+      description: "Nome exato da extensão instalada no aplicativo."
+      placeholder: "Ex.: MangaLivre.lat, ManHQ, SukiMangas, GoMangas, NeoToons"
     validations:
       required: true
+
   - type: input
-    id: versao
+    id: extension_version
     attributes:
-      label: Versão
-      description: Informe a versão exibida no app.
+      label: "Qual versão da extensão você está utilizando?"
+      description: "No aplicativo, abra 'Extensões' e toque no nome da extensão para ver a versão instalada. Caso não consiga verificar, digite 'Não sei'."
+      placeholder: "Ex.: 1.6.60, 16.1 ou Não sei"
+      value: "Não sei"
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: "### 📱 Aplicativo utilizado"
+
+  - type: dropdown
+    id: app_name
+    attributes:
+      label: "Aplicativo utilizado"
+      description: "Selecione qual aplicativo leitor você está utilizando."
+      options:
+        - "Mihon"
+        - "Tachiyomi"
+        - "Aniyomi"
+        - "Komikku"
+        - "Suwayomi"
+        - "TachiyomiSY"
+        - "TachiyomiJ2K"
+        - "Outro"
+    validations:
+      required: true
+
   - type: input
-    id: url
+    id: other_app
     attributes:
-      label: URL do site
-      placeholder: https://exemplo.com
+      label: "Qual aplicativo você utiliza? (se selecionou Outro acima)"
+      description: "Caso tenha selecionado 'Outro' acima, especifique o nome do aplicativo ou fork utilizado."
+      placeholder: "Ex.: Kotatsu, Paperback, Mangayomi, etc."
     validations:
-      required: true
+      required: false
+
+  - type: input
+    id: app_version
+    attributes:
+      label: "Versão do aplicativo (opcional)"
+      description: "Versão instalada do aplicativo leitor (diferente da versão da extensão). Ex.: Mihon 0.17.1, Aniyomi 0.15.3."
+      placeholder: "Ex.: Mihon 0.17.1"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: "### 🐛 Detalhes do problema"
+
   - type: checkboxes
-    id: parte_afetada
+    id: affected_parts
     attributes:
-      label: O que está quebrado?
+      label: "Parte afetada (selecione todas as aplicáveis)"
+      description: "Indique em quais áreas da extensão o erro se manifesta."
       options:
-        - label: Popular
-        - label: Recentes
-        - label: Busca
-        - label: Filtros
-        - label: Detalhes
-        - label: Capítulos/Episódios
-        - label: Leitor/Vídeo
-        - label: Login
-        - label: Outro
+        - label: "Popular"
+        - label: "Recentes"
+        - label: "Busca"
+        - label: "Filtros"
+        - label: "Metadados"
+        - label: "Capítulos"
+        - label: "Leitor de imagens"
+        - label: "Episódios"
+        - label: "Reprodução de vídeo"
+        - label: "Login"
+        - label: "Instalação ou atualização"
+        - label: "Outro"
     validations:
       required: true
+
   - type: textarea
-    id: inicio
+    id: description
     attributes:
-      label: Quando começou, se souber
-      placeholder: "Ex.: Hoje, após uma mudança no site."
-  - type: dropdown
-    id: navegador
-    attributes:
-      label: O site funciona normalmente no navegador?
-      options:
-        - Sim
-        - Não
-        - Parcialmente
-        - Não sei
+      label: "O que está acontecendo?"
+      description: "Explique claramente o erro observado e o que deveria ter acontecido."
+      placeholder: "Ex.: Ao abrir o capítulo 120, algumas páginas carregam, mas outras apresentam 'Failed to initialize decoder'."
     validations:
       required: true
-  - type: dropdown
-    id: login
-    attributes:
-      label: Precisa de login?
-      options:
-        - Não
-        - Sim
-        - Não sei
-    validations:
-      required: true
-  - type: dropdown
-    id: premium
-    attributes:
-      label: Precisa de VIP/Premium?
-      options:
-        - Não
-        - Sim
-        - Parcialmente
-        - Não sei
-    validations:
-      required: true
+
   - type: textarea
-    id: erro
+    id: reproduction_steps
     attributes:
-      label: Mensagem de erro
-      description: Copie a mensagem exibida, se houver. Não inclua dados privados.
+      label: "Passos para reproduzir"
+      description: "Descreva a sequência de ações para que nossa equipe consiga reproduzir o erro."
+      placeholder: |
+        1. Abrir o aplicativo (ex.: Mihon).
+        2. Selecionar a extensão MangaLivre.lat.
+        3. Abrir qualquer obra da lista.
+        4. Entrar no capítulo 120.
+        5. Observar o erro na página.
     validations:
       required: true
-  - type: textarea
-    id: adicionais
+
+  - type: markdown
     attributes:
-      label: Informações adicionais
-      description: Você pode anexar prints ou vídeos aqui.
+      value: "### 📎 Informações complementares"
+
+  - type: input
+    id: error_message
+    attributes:
+      label: "Mensagem ou código de erro exibido (opcional)"
+      description: "Copie o texto da mensagem de erro ou notificação, se houver."
+      placeholder: "Ex.: HTTP 403, Cloudflare Challenge Failed, No pages found"
+    validations:
+      required: false
+
+  - type: input
+    id: content_url
+    attributes:
+      label: "URL da obra ou capítulo afetado (opcional)"
+      description: "Link direto da página do mangá ou anime no site original."
+      placeholder: "Ex.: https://mangalivre.lat/obra/exemplo/capitulo-120"
+    validations:
+      required: false
+
+  - type: input
+    id: device_os
+    attributes:
+      label: "Dispositivo e Sistema Operacional (opcional)"
+      description: "Modelo do aparelho e versão do sistema operacional."
+      placeholder: "Ex.: Samsung Galaxy S23 (Android 14) / Linux Ubuntu 24.04 / Windows 11"
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Capturas de tela ou evidências (opcional)"
+      description: "Arraste ou cole imagens demonstrando o problema ocorrido."
+    validations:
+      required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: "Observações adicionais (opcional)"
+      description: "Outras informações úteis (ex.: se a obra abre normalmente no navegador comum, se ocorre apenas via Wi-Fi ou dados móveis)."
+    validations:
+      required: false

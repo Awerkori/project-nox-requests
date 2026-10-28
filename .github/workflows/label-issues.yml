@@ -1,4 +1,4 @@
-name: Rotular tipo de Issue
+name: Normalizar Título e Classificar Labels Automaticamente
 
 on:
   issues:
@@ -8,29 +8,197 @@ permissions:
   issues: write
 
 jobs:
-  label-type:
+  normalize-and-label:
     runs-on: ubuntu-latest
     steps:
-      - name: Aplicar label Mangá ou Anime
+      - name: Executar normalização de título e classificação de labels
         uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const body = context.payload.issue.body || '';
-            const match = body.match(/^###\s*Tipo\s*\r?\n+\s*(Mangá|Anime)\s*$/im);
-            if (!match) return;
+            const issue = context.payload.issue;
+            const body = issue.body || '';
+            const rawTitle = (issue.title || '').trim();
+            const currentLabels = (issue.labels || []).map(l => l.name);
+            const isClosed = issue.state === 'closed';
 
-            const selected = match[1] === 'Mangá' ? 'Manga' : 'Anime';
-            const other = selected === 'Manga' ? 'Anime' : 'Manga';
             const params = {
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
             };
 
-            await github.rest.issues.addLabels({ ...params, labels: [selected] });
-            try {
-              await github.rest.issues.removeLabel({ ...params, name: other });
-            } catch (error) {
-              if (error.status !== 404) throw error;
+            // -------------------------------------------------------------
+            // 1. Identificar Categoria da Solicitação
+            // -------------------------------------------------------------
+            let category = null;
+            if (currentLabels.includes('Nova extensão')) {
+              category = 'Nova extensão';
+            } else if (currentLabels.includes('Problema na extensão') || currentLabels.includes('Bug')) {
+              category = 'Problema na extensão';
+            } else if (currentLabels.includes('Mudança de domínio')) {
+              category = 'Mudança de domínio';
+            } else if (currentLabels.includes('Fonte indisponível') || currentLabels.includes('Fonte morta')) {
+              category = 'Fonte indisponível';
+            } else if (currentLabels.includes('Sugestão')) {
+              category = 'Sugestão';
+            } else {
+              // Detecção heurística caso a issue tenha sido aberta sem labels do template
+              if (body.includes('Qual extensão está apresentando o problema?') || body.includes('Parte afetada')) {
+                category = 'Problema na extensão';
+              } else if (body.includes('URL oficial do site') && body.includes('Precisa de login?')) {
+                category = 'Nova extensão';
+              } else if (body.includes('Domínio ou URL antigo')) {
+                category = 'Mudança de domínio';
+              } else if (body.includes('O que aconteceu com a fonte?')) {
+                category = 'Fonte indisponível';
+              } else if (body.includes('Proposta de melhoria') || body.includes('Título ou resumo da sugestão')) {
+                category = 'Sugestão';
+              }
+            }
+
+            // -------------------------------------------------------------
+            // 2. Normalização do Título (Sem prefixos duplicados, preserva o nome real)
+            // -------------------------------------------------------------
+            function extractField(regex) {
+              const m = body.match(regex);
+              return m ? m[1].trim() : '';
+            }
+
+            // Remove qualquer prefixo existente ou repetido do título original
+            const prefixRegex = /^\s*(\[(?:Nova extensão|Problema na extensão|Bug|Mudança de domínio|Fonte indisponível|Fonte morta|Sugestão)\]\s*:\s*)+/i;
+            const cleanTitle = rawTitle.replace(prefixRegex, '').trim();
+
+            let desiredTitle = rawTitle;
+
+            if (category === 'Nova extensão') {
+              const fonteName = extractField(/###\s*Nome da fonte\/site\s*\r?\n+([^\r\n#]+)/i);
+              const finalName = fonteName || cleanTitle || 'Nova fonte';
+              desiredTitle = `[Nova extensão]: ${finalName}`;
+            } else if (category === 'Problema na extensão') {
+              const extName = extractField(/###\s*(?:Qual extensão está apresentando o problema\?|Nome da extensão)\s*\r?\n+([^\r\n#]+)/i);
+              if (extName) {
+                const extPrefixRegex = new RegExp(`^${extName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*[-—:]\\s*`, 'i');
+                if (extPrefixRegex.test(cleanTitle)) {
+                  const summary = cleanTitle.replace(extPrefixRegex, '').trim();
+                  desiredTitle = summary ? `[Problema na extensão]: ${extName} — ${summary}` : `[Problema na extensão]: ${extName}`;
+                } else if (cleanTitle.toLowerCase() === extName.toLowerCase() || !cleanTitle) {
+                  desiredTitle = `[Problema na extensão]: ${extName}`;
+                } else {
+                  desiredTitle = `[Problema na extensão]: ${extName} — ${cleanTitle}`;
+                }
+              } else {
+                desiredTitle = `[Problema na extensão]: ${cleanTitle || 'Problema relatado'}`;
+              }
+            } else if (category === 'Mudança de domínio') {
+              const extName = extractField(/###\s*Nome da extensão\s*\r?\n+([^\r\n#]+)/i);
+              const finalName = extName || cleanTitle || 'Extensão';
+              desiredTitle = `[Mudança de domínio]: ${finalName}`;
+            } else if (category === 'Fonte indisponível') {
+              const extName = extractField(/###\s*Nome da extensão\s*\r?\n+([^\r\n#]+)/i);
+              const finalName = extName || cleanTitle || 'Extensão';
+              desiredTitle = `[Fonte indisponível]: ${finalName}`;
+            } else if (category === 'Sugestão') {
+              const summary = extractField(/###\s*Título ou resumo da sugestão\s*\r?\n+([^\r\n#]+)/i);
+              const finalSummary = cleanTitle || summary || 'Sugestão';
+              desiredTitle = `[Sugestão]: ${finalSummary}`;
+            }
+
+            // Limpa traços duplos se houver
+            desiredTitle = desiredTitle.replace(/\s*—\s*—\s*/g, ' — ').trim();
+
+            // Atualiza título apenas se for estritamente diferente (idempotência pura)
+            if (desiredTitle && desiredTitle !== rawTitle) {
+              console.log(`Normalizando título: "${rawTitle}" -> "${desiredTitle}"`);
+              await github.rest.issues.update({
+                ...params,
+                title: desiredTitle,
+              });
+            }
+
+            // -------------------------------------------------------------
+            // 3. Classificação Automática de Labels
+            // -------------------------------------------------------------
+            const labelsToAdd = new Set();
+            const labelsToRemove = new Set();
+
+            // A) Tipo Obrigatório: Mangá ou Anime (mutuamente exclusivos)
+            const typeMatch = body.match(/^###\s*Tipo(?: de extensão)?(?:[^\r\n]*)?\r?\n+\s*(Mangá|Anime)\s*$/im);
+            if (typeMatch) {
+              const selectedType = typeMatch[1].toLowerCase().includes('mang') ? 'Mangá' : 'Anime';
+              const oppositeType = selectedType === 'Mangá' ? 'Anime' : 'Mangá';
+              const legacyOpposites = selectedType === 'Mangá' ? ['Anime', 'type:anime'] : ['Manga', 'Mangá', 'type:manga'];
+
+              if (!currentLabels.includes(selectedType)) {
+                labelsToAdd.add(selectedType);
+              }
+
+              for (const rem of [oppositeType, ...legacyOpposites]) {
+                if (rem !== selectedType && currentLabels.includes(rem)) {
+                  labelsToRemove.add(rem);
+                }
+              }
+            }
+
+            // B) Classificação +18
+            const nsfwMatch = body.match(/^###\s*(?:O site possui conteúdo \+18\?|Conteúdo \+18\??)(?:[^\r\n]*)?\r?\n+\s*(Sim|Não)/im);
+            if (nsfwMatch) {
+              const isNsfw = nsfwMatch[1].toLowerCase().includes('sim');
+              if (isNsfw) {
+                if (!currentLabels.includes('Conteúdo +18')) {
+                  labelsToAdd.add('Conteúdo +18');
+                }
+                if (currentLabels.includes('+18')) {
+                  labelsToRemove.add('+18');
+                }
+              } else {
+                if (currentLabels.includes('Conteúdo +18')) {
+                  labelsToRemove.add('Conteúdo +18');
+                }
+                if (currentLabels.includes('+18')) {
+                  labelsToRemove.add('+18');
+                }
+              }
+            }
+
+            // C) Garantir Label de Categoria
+            if (category && !currentLabels.includes(category)) {
+              labelsToAdd.add(category);
+            }
+            // Limpar labels legadas de categoria se aplicável
+            if (category === 'Problema na extensão' && currentLabels.includes('Bug')) {
+              labelsToRemove.add('Bug');
+            }
+            if (category === 'Fonte indisponível' && currentLabels.includes('Fonte morta')) {
+              labelsToRemove.add('Fonte morta');
+            }
+
+            // D) Status Inicial Obrigatório: "Em análise"
+            const statuses = ['Em análise', 'Aceito', 'Em desenvolvimento', 'Aguardando informações'];
+            const resolutions = ['Concluído', 'Recusado', 'Duplicado', 'Cancelado'];
+
+            const hasStatus = currentLabels.some(l => statuses.includes(l) || l.startsWith('status:')) ||
+                              Array.from(labelsToAdd).some(l => statuses.includes(l));
+            const hasResolution = currentLabels.some(l => resolutions.includes(l) || l.startsWith('resolution:'));
+
+            if (!isClosed && !hasStatus && !hasResolution) {
+              labelsToAdd.add('Em análise');
+            }
+
+            // -------------------------------------------------------------
+            // 4. Aplicar Alterações de Labels no GitHub
+            // -------------------------------------------------------------
+            for (const rem of labelsToRemove) {
+              try {
+                console.log(`Removendo label conflitante/legada: ${rem}`);
+                await github.rest.issues.removeLabel({ ...params, name: rem });
+              } catch (err) {
+                if (err.status !== 404) console.warn(`Falha ao remover label ${rem}:`, err.message);
+              }
+            }
+
+            const toAddList = Array.from(labelsToAdd).filter(l => !currentLabels.includes(l));
+            if (toAddList.length > 0) {
+              console.log(`Adicionando labels oficiais: ${toAddList.join(', ')}`);
+              await github.rest.issues.addLabels({ ...params, labels: toAddList });
             }

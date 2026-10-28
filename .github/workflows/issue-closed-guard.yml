@@ -1,0 +1,32 @@
+name: Guardião de Encerramento de Issues
+
+on:
+  issues:
+    types: [closed]
+
+permissions:
+  issues: write
+
+jobs:
+  check-resolution:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verificar se Issue possui label de resolução
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const labels = (issue.labels || []).map(l => l.name);
+
+            const hasResolution = labels.some(l =>
+              l === 'Concluído' || l === 'Recusado' || l === 'Duplicado' || l === 'Cancelado' || l.startsWith('resolution:')
+            );
+
+            if (!hasResolution) {
+              console.log(`Aviso: Issue #${issue.number} foi fechada sem label formal de resolução.`);
+              // We do not fail the workflow to avoid disrupting GitHub operations,
+              // but we log clearly and optionally comment if desired.
+            } else {
+              console.log(`Issue #${issue.number} fechada com resolução válida.`);
+            }

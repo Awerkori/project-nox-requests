@@ -1,88 +1,117 @@
-name: "🌐 Pedir nova extensão"
-description: Solicite uma nova fonte de Mangá ou Anime.
-title: "[Nova extensão]: "
+name: "🌐 Nova extensão"
+description: "Solicitar a inclusão de uma nova fonte de Mangá ou Anime no Project Nox."
 labels: ["Nova extensão"]
 body:
+  - type: markdown
+    attributes:
+      value: "### 📌 Informações da extensão"
+
   - type: dropdown
-    id: tipo
+    id: type
     attributes:
-      label: Tipo
+      label: "Tipo de extensão"
+      description: "Selecione se a fonte é focada em leitura de mangás ou streaming de animes."
       options:
-        - Mangá
-        - Anime
+        - "Mangá"
+        - "Anime"
     validations:
       required: true
+
   - type: input
-    id: fonte
+    id: name
     attributes:
-      label: Nome da fonte/site
-      placeholder: "Ex.: Nome do site"
+      label: "Nome da fonte/site"
+      description: "Nome oficial da fonte exatamente como exibido na plataforma."
+      placeholder: "Ex.: SukiMangas"
     validations:
       required: true
+
   - type: input
     id: url
     attributes:
-      label: URL do site
-      placeholder: https://exemplo.com
+      label: "URL oficial do site"
+      description: "Endereço web completo e acessível da fonte."
+      placeholder: "Ex.: https://sukimangas.com"
     validations:
       required: true
+
   - type: input
-    id: idioma
+    id: lang
     attributes:
-      label: Idioma
+      label: "Idioma"
+      description: "Idioma principal dos títulos e capítulos da fonte."
       placeholder: "Ex.: Português (Brasil)"
+      value: "Português (Brasil)"
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: "### 🔐 Requisitos de acesso"
+
   - type: dropdown
     id: login
     attributes:
-      label: Precisa de login?
+      label: "Precisa de login?"
+      description: "O conteúdo público pode ser acessado sem criação de conta?"
       options:
-        - Não
-        - Sim
+        - "Não"
+        - "Sim"
     validations:
       required: true
+
   - type: dropdown
-    id: premium
+    id: vip
     attributes:
-      label: Precisa de VIP/Premium?
+      label: "Precisa de VIP/Premium?"
+      description: "Há conteúdo bloqueado sob assinatura paga ou passe VIP?"
       options:
-        - Não
-        - Sim
-        - Parcialmente
+        - "Não"
+        - "Sim"
+        - "Parcialmente"
     validations:
       required: true
+
   - type: dropdown
-    id: adulto
+    id: nsfw
     attributes:
-      label: Conteúdo +18?
+      label: "O site possui conteúdo +18?"
+      description: "A fonte hospeda conteúdo adulto explícito (+18/Hentai)?"
       options:
-        - Não
-        - Sim
+        - "Não"
+        - "Sim"
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: "### 📝 Informações adicionais"
+
   - type: textarea
-    id: observacoes
+    id: notes
     attributes:
-      label: Observações
-      description: Inclua detalhes úteis sobre a fonte, sem dados privados.
+      label: "Observações (opcional)"
+      description: "Informações adicionais sobre o site, se houver (sem senhas ou dados privados)."
+      placeholder: "Ex.: O site mudou de layout recentemente ou usa proteção específica."
     validations:
-      required: true
-  - type: checkboxes
-    id: confirmacoes
+      required: false
+
+  - type: markdown
     attributes:
-      label: Confirmações
+      value: "### ✅ Confirmação"
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: "Confirmações"
       options:
-        - label: Confirmei que a extensão ainda não existe.
+        - label: "Pesquisei solicitações existentes e confirmo que este pedido não é duplicado."
           required: true
-        - label: Procurei Issues abertas e fechadas.
+        - label: "Não incluí senhas, tokens, cookies ou credenciais pessoais privadas."
           required: true
-        - label: Este ticket não é duplicado.
-          required: true
-        - label: Não incluí senha, token, cookie ou credencial privada.
-          required: true
+
   - type: markdown
     attributes:
       value: |
-        Use 👍 neste Issue para demonstrar interesse nesta extensão.
-        Não crie tickets duplicados apenas para votar.
+        ---
+        👍 **Dica:** Ao abrir o ticket, curta com a reação 👍 para ajudar a subir a prioridade da extensão no Tracker!

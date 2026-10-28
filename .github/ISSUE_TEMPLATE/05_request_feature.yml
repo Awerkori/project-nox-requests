@@ -1,34 +1,55 @@
-name: "✨ Sugerir melhoria"
-description: Sugira uma melhoria relacionada às extensões.
-title: "[Sugestão]: "
+name: "✨ Sugestão de melhoria"
+description: "Propor novas funcionalidades, melhorias no ecossistema ou ideias para extensões."
 labels: ["Sugestão"]
 body:
+  - type: markdown
+    attributes:
+      value: "### 💡 Proposta de melhoria"
+
   - type: input
-    id: extensao
+    id: summary
     attributes:
-      label: Extensão afetada, se houver
-  - type: dropdown
-    id: tipo
-    attributes:
-      label: Tipo
-      options:
-        - Mangá
-        - Anime
+      label: "Título ou resumo da sugestão"
+      description: "Uma frase concisa resumindo o recurso ou melhoria proposta."
+      placeholder: "Ex.: Adicionar suporte a filtro por ano de lançamento no catálogo"
     validations:
       required: true
+
   - type: textarea
-    id: sugestao
+    id: description
     attributes:
-      label: Descrição da sugestão
+      label: "Descrição da melhoria"
+      description: "Explique em detalhes a melhoria que você gostaria de ver implementada e como ela funcionaria."
+      placeholder: "Ex.: Adicionar um novo filtro nos catálogos para permitir filtrar obras por ano ou década de publicação."
     validations:
       required: true
+
   - type: textarea
-    id: motivo
+    id: purpose
     attributes:
-      label: Motivo
+      label: "Objetivo ou justificativa"
+      description: "Por que essa melhoria seria útil para os usuários e para o ecossistema do Project Nox?"
+      placeholder: "Ex.: Facilitaria encontrar obras clássicas ou lançamentos específicos de uma temporada sem precisar de busca textual."
     validations:
       required: true
-  - type: textarea
-    id: adicionais
+
+  - type: markdown
     attributes:
-      label: Informações adicionais
+      value: "### 📝 Informações complementares"
+
+  - type: input
+    id: related_extension
+    attributes:
+      label: "Extensão relacionada (opcional)"
+      description: "Se a sugestão for específica para uma extensão, informe o nome. Deixe em branco para sugestões gerais do Project Nox."
+      placeholder: "Ex.: SukiMangas, MangaLivre.lat ou deixe em branco se for geral"
+    validations:
+      required: false
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: "Informações complementares (opcional)"
+      description: "Exemplos de outros aplicativos que já possuem essa função, conceitos visuais ou links de referência."
+    validations:
+      required: false
