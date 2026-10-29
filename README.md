@@ -1,20 +1,50 @@
-# Project Nox — Pedidos e Correções
+# Project Nox · Central de Pedidos
 
-Este é o local oficial do Project Nox para pedir e acompanhar mudanças nas extensões de Mangá e Anime para Mihon, Aniyomi e forks.
+Central oficial da comunidade do **Project Nox** para envio de solicitações, reporte de fontes com erro, informe de mudanças de domínio e acompanhamento de demandas para extensões de Mangá e Anime no **Mihon**, **Aniyomi** e forks compatíveis.
 
-Use este repositório para:
+---
 
-- pedir uma nova extensão de Mangá ou Anime;
-- reportar uma extensão quebrada;
-- informar uma mudança de domínio;
-- informar que uma fonte ou site morreu;
-- sugerir melhorias relacionadas às extensões.
+> [!TIP]
+> **Acompanhe o andamento em tempo real:**  
+> Todas as solicitações abertas neste repositório são agregadas no [**Project Nox · Tracker**](https://awerkori.github.io/project-nox-tracker/), com filtros por status, tipo e popularidade.
 
-Antes de abrir um Issue, procure entre os tickets abertos e fechados. Se já existir um pedido igual, use a reação 👍 para demonstrar interesse. Mais votos ajudam a indicar demanda, mas não garantem prioridade. Futuramente, o Project Nox Tracker poderá usar essa reação para ordenar pedidos.
+---
 
-Nunca envie login, senha, cookies, token ou qualquer dado privado. Extensões podem ser recusadas por inviabilidade técnica, conteúdo exclusivamente pago ou outros impedimentos.
+## 🎯 Finalidade da Central
 
-Repositórios de extensões do Project Nox:
+Utilize esta central para:
+- 💡 **Pedir uma nova extensão** de Mangá ou Anime.
+- 🐛 **Reportar uma extensão quebrada** (erro no carregamento, falha ao baixar capítulos ou reproduzir vídeos).
+- 🔄 **Informar mudança de domínio** de um site existente.
+- 🪦 **Informar encerramento definitivo** de uma fonte fora do ar.
+- ✨ **Sugerir melhorias** estruturais ou novos recursos nas extensões.
 
-- [Mangá](https://github.com/Awerkori/fonte-extensoes)
-- [Anime](https://github.com/Awerkori/anime-fonte-extensoes)
+---
+
+## 📋 Como Abrir uma Solicitação
+
+1. **Pesquise antes de abrir:** Verifique as [Issues Abertas e Fechadas](https://github.com/Awerkori/project-nox-requests/issues) para checar se o pedido já foi registrado.
+2. **Vote com 👍:** Se a solicitação já existir, adicione uma reação de positivo (**👍**) na mensagem inicial do ticket. O número de reações ajuda a equipe a priorizar o backlog.
+3. **Preencha o formulário completo:** Escolha o modelo correspondente ao seu caso e informe os links públicos e detalhes solicitados.
+
+> [!WARNING]
+> **Privacidade e Segurança:**  
+> **Nunca envie** senhas, cookies de sessão, tokens de API ou quaisquer dados pessoais sensíveis nos tickets. Chamados com informações sensíveis serão deletados por segurança.
+
+---
+
+## 🔗 Ecossistema Project Nox
+
+| Área | Repositório de Distribuição (App) | Repositório de Código-fonte (Dev) |
+| :--- | :--- | :--- |
+| **Mangá** | [📦 manga-extensoes](https://github.com/Awerkori/manga-extensoes) | [💻 manga-fonte-extensoes](https://github.com/Awerkori/manga-fonte-extensoes) |
+| **Anime** | [🎬 anime-extensoes](https://github.com/Awerkori/anime-extensoes) | [💻 anime-fonte-extensoes](https://github.com/Awerkori/anime-fonte-extensoes) |
+
+- 📊 [**Project Nox · Tracker**](https://awerkori.github.io/project-nox-tracker/) — Painel de status em tempo real.
+- 🌐 [**Project Nox · Site**](https://manga.project-nox-awerkori.workers.dev) — Plataforma web oficial de leitura.
+
+---
+
+## ⚖️ Critérios de Admissão
+
+O trabalho de desenvolvimento e manutenção é mantido pela comunidade. A abertura de um chamado não garante inclusão imediata, estando sujeita à viabilidade técnica do site (ex: presença de proteções pesadas anti-scraping, players criptografados ou conteúdo estritamente pago).
