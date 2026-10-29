@@ -1,6 +1,6 @@
 # Project Nox · Central de Pedidos
 
-Central oficial da comunidade do **Project Nox** para envio de solicitações, reporte de fontes com erro, informe de mudanças de domínio e acompanhamento de demandas para extensões de Mangá e Anime no **Mihon**, **Aniyomi** e forks compatíveis.
+Central oficial da comunidade do **Project Nox** para envio de solicitações, reporte de fontes com erro, informe de mudanças de domínio e acompanhamento de demandas para extensões de Mangá e Anime no ecossistema **Mihon e forks** e **Aniyomi e forks**.
 
 ---
 
@@ -14,22 +14,22 @@ Central oficial da comunidade do **Project Nox** para envio de solicitações, r
 
 Utilize esta central para:
 - 💡 **Pedir uma nova extensão** de Mangá ou Anime.
-- 🐛 **Reportar uma extensão quebrada** (erro no carregamento, falha ao baixar capítulos ou reproduzir vídeos).
+- 🐛 **Reportar uma extensão quebrada** (erro no carregamento de imagens, falha ao baixar capítulos ou reproduzir vídeos).
 - 🔄 **Informar mudança de domínio** de um site existente.
 - 🪦 **Informar encerramento definitivo** de uma fonte fora do ar.
-- ✨ **Sugerir melhorias** estruturais ou novos recursos nas extensões.
+- ✨ **Sugerir melhorias** estruturais ou novos recursos nos parsers e extractors.
 
 ---
 
 ## 📋 Como Abrir uma Solicitação
 
-1. **Pesquise antes de abrir:** Verifique as [Issues Abertas e Fechadas](https://github.com/Awerkori/project-nox-requests/issues) para checar se o pedido já foi registrado.
+1. **Pesquise antes de abrir:** Verifique as [Issues Abertas e Fechadas](https://github.com/Awerkori/project-nox-requests/issues) para checar se o pedido já foi registrado por outro usuário.
 2. **Vote com 👍:** Se a solicitação já existir, adicione uma reação de positivo (**👍**) na mensagem inicial do ticket. O número de reações ajuda a equipe a priorizar o backlog.
 3. **Preencha o formulário completo:** Escolha o modelo correspondente ao seu caso e informe os links públicos e detalhes solicitados.
 
 > [!WARNING]
 > **Privacidade e Segurança:**  
-> **Nunca envie** senhas, cookies de sessão, tokens de API ou quaisquer dados pessoais sensíveis nos tickets. Chamados com informações sensíveis serão deletados por segurança.
+> **Nunca envie** senhas, cookies de sessão, tokens de API ou quaisquer dados pessoais sensíveis nos tickets. Chamados com informações sensíveis serão deletados imediatamente por motivos de segurança.
 
 ---
 
@@ -42,6 +42,13 @@ Utilize esta central para:
 
 - 📊 [**Project Nox · Tracker**](https://awerkori.github.io/project-nox-tracker/) — Painel de status em tempo real.
 - 🌐 [**Project Nox · Site**](https://manga.project-nox-awerkori.workers.dev) — Plataforma web oficial de leitura.
+
+---
+
+## 🌟 Créditos e Comunidade
+
+- **Project Nox**: Moderação, triagem de chamados e resolução técnica.
+- Leitores, espectadores e colaboradores que auxiliam na identificação de erros e envio de novas sugestões.
 
 ---
 
