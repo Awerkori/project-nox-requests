@@ -55,3 +55,29 @@ Utilize esta central para:
 ## ⚖️ Critérios de Admissão
 
 O trabalho de desenvolvimento e manutenção é mantido pela comunidade. A abertura de um chamado não garante inclusão imediata, estando sujeita à viabilidade técnica do site (ex: presença de proteções pesadas anti-scraping, players criptografados ou conteúdo estritamente pago).
+
+
+---
+
+## ⚖️ Licença
+
+Este repositório, seus scripts de automação e modelos de chamados são software livre licenciados sob os termos da **GNU General Public License versão 3.0** (`GPL-3.0-only`). Consulte o arquivo [LICENSE](LICENSE) para obter o texto integral inalterado da licença e o arquivo [NOTICE](NOTICE) para informações detalhadas de autoria, marcas e governança.
+
+```
+Copyright (C) 2026 Project Nox Contributors & Awerkori
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+```
+
+### 📌 Nota sobre GPL-3.0 e AGPL-3.0
+O Project Nox adota oficialmente a licença **GNU GPL versão 3.0**. Diferentemente da licença GNU AGPLv3, a GPLv3 não contém a cláusula de interação remota por rede (Seção 13 da AGPL).
+
+### 🛡️ Autenticidade e Marca
+A concessão da licença GPL 3.0 refere-se estritamente aos direitos autorais do software e scripts. Ela **não concede** autorização ou licença para uso de marcas, logotipos oficiais ou da denominação "Project Nox" para insinuar homologação, endosso ou representação oficial do projeto.

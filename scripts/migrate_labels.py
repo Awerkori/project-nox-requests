@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-only
+# Copyright (C) 2026 Project Nox Contributors & Awerkori
+
 """Project Nox Requests - Label Standardization & Migration Tool.
 
 Migrates legacy GitHub issue labels to the 17 standardized official labels taxonomy
