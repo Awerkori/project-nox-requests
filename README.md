@@ -55,3 +55,29 @@ Utilize esta central para:
 ## ⚖️ Critérios de Admissão
 
 O trabalho de desenvolvimento e manutenção é mantido pela comunidade. A abertura de um chamado não garante inclusão imediata, estando sujeita à viabilidade técnica do site (ex: presença de proteções pesadas anti-scraping, players criptografados ou conteúdo estritamente pago).
+
+
+---
+
+## ⚖️ Licença e Copyright
+
+Este repositório, seus scripts de automação e modelos de chamados são software livre licenciados sob os termos da **GNU Affero General Public License versão 3.0** (`AGPL-3.0-only`). Consulte o arquivo [LICENSE](LICENSE) para obter o texto integral inalterado da licença e o arquivo [NOTICE](NOTICE) para informações detalhadas de autoria, marcas e governança.
+
+```
+Copyright (C) 2026 Project Nox Contributors & Awerkori
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, version 3 of the License.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+```
+
+### 📌 Interação Remota de Rede (GNU AGPLv3 Seção 13)
+O Project Nox adota oficialmente a licença **GNU AGPL versão 3.0**. Nos termos da Seção 13 da AGPLv3, qualquer versão modificada destas automações ou serviços operada em servidores ou instâncias acessíveis remotamente através de uma rede de computadores deve oferecer a todos os usuários remotos a oportunidade de obter o Código-Fonte Correspondente (Corresponding Source) da versão em execução, sem cobrança e por meio padrão de disponibilização de software em rede.
+
+### 🛡️ Proteção de Identidade e Marca (AGPLv3 Seção 7(e))
+A concessão da licença AGPLv3 refere-se estritamente aos direitos autorais do software e scripts. Os nomes "Project Nox" e "Awerkori", bem como logotipos associados, identificam a procedência e origem do projeto. A licença **não concede** autorização para uso de nomes, marcas ou logotipos para insinuar homologação, endosso ou representação oficial sem autorização prévia por escrito.

@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: AGPL-3.0-only
+# Copyright (C) 2026 Project Nox Contributors & Awerkori
+
 """Project Nox Requests - Automation Logic Unit & Edge Case Test Suite
 Simulates the GitHub Actions JavaScript workflow logic for:
 1. Title normalization (prevent duplicates, extract clean titles, format prefixes)
